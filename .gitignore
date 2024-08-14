@@ -3,5 +3,5 @@
 bin/
 lib/
 share/
-.cfg
-.xlsx
+*.cfg
+*.xlsx

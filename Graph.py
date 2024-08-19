@@ -1,8 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Caminho do arquivo
-file_path = "RSL - Rastreamento - Data Quantification.xlsx"
+file_path = "seuarquivo.xlsx"
 
 def gerar_graficos(sheet_name, colunas_selecionadas, linha_inicio, linha_fim):
     df = pd.read_excel(file_path, sheet_name=sheet_name)
@@ -13,7 +12,6 @@ def gerar_graficos(sheet_name, colunas_selecionadas, linha_inicio, linha_fim):
     total_linhas, total_colunas = df.shape
     print(f"Número de linhas: {total_linhas}, Número de colunas: {total_colunas}")
     
-    # Debug: Verificar se os índices fornecidos estão dentro do limite
     if linha_inicio >= total_linhas or linha_fim > total_linhas:
         print(f"Erro: Tentativa de acessar linhas fora dos limites. Total de linhas disponíveis: {total_linhas}.")
         raise IndexError("Os índices de linhas estão fora dos limites.")
@@ -28,15 +26,12 @@ def gerar_graficos(sheet_name, colunas_selecionadas, linha_inicio, linha_fim):
     
     contagem = df_filtrado.apply(lambda col: col.astype(str).str.contains('X').sum())
 
-    # Definições para o tamanho da fonte
+    # Tamanho da fonte
     font_size = 14
 
     # Gráfico de barra
     plt.figure(figsize=(10, 6))
     contagem.plot(kind='bar', color='skyblue')
-    #plt.title('Contagem de "X" por Coluna', fontsize=font_size + 2)
-    #plt.xlabel('Colunas', fontsize=font_size)
-    #plt.ylabel('Contagem', fontsize=font_size)
     plt.xticks(fontsize=font_size)
     plt.yticks(fontsize=font_size)
     plt.show()
@@ -45,13 +40,11 @@ def gerar_graficos(sheet_name, colunas_selecionadas, linha_inicio, linha_fim):
     plt.figure(figsize=(8, 8))
     contagem.plot(kind='pie', autopct='%1.1f%%', startangle=140, fontsize=font_size)
     plt.ylabel('')
-    #plt.title('Distribuição de "X" por Coluna', fontsize=font_size + 2)
     plt.show()
 
     # Gráfico de linhas
     plt.figure(figsize=(10, 6))
     contagem.plot(kind='line', marker='o', linestyle='-', color='green')
-    #plt.title('Linha do Tempo de "X"', fontsize=font_size + 2)
     plt.xlabel('Colunas', fontsize=font_size)
     plt.ylabel('Contagem', fontsize=font_size)
     plt.xticks(fontsize=font_size)
